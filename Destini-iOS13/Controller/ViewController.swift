@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func choose(_ sender: UIButton) {
-        currentStory += 1
+        currentStory += sender == choice1Button ? 1 : 2
         
         updateUI()
     }
