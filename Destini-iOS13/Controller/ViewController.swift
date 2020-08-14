@@ -14,13 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var choice1Button: UIButton!
     @IBOutlet weak var choice2Button: UIButton!
     
-    let stories = [
-        Story(title: "You see a fork in the road.", choice1: "Take a left.", choice2: "Take a right."),
-        Story(title: "You see a tiger.", choice1: "Shout for help.", choice2: "Play dead."),
-        Story(title: "You find a treasure chest.", choice1: "Open it.", choice2: "Check for traps.")
-    ]
-    
-    var currentStory = 0
+    var storyBrain = StoryBrain()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,16 +23,18 @@ class ViewController: UIViewController {
     }
 
     @IBAction func choose(_ sender: UIButton) {
-        currentStory += sender == choice1Button ? 1 : 2
+        sender == choice1Button ? storyBrain.choose1() : storyBrain.choose2()
         
         updateUI()
     }
     
     
     func updateUI() {
-        storyLabel.text = stories[currentStory].title
-        choice1Button.setTitle(stories[currentStory].choice1, for: UIControl.State.normal)
-        choice2Button.setTitle(stories[currentStory].choice2, for: UIControl.State.normal)
+        let story = storyBrain.currentStory()
+        
+        storyLabel.text = story.title
+        choice1Button.setTitle(story.choice1, for: UIControl.State.normal)
+        choice2Button.setTitle(story.choice2, for: UIControl.State.normal)
     }
 }
 
